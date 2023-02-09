@@ -1,0 +1,209 @@
+
+{% extends "layout.html" %}
+{% block body %}
+
+<!-- header section ends -->
+
+<section class="heading-link">
+   <h3>about us</h3>
+   <p> <a href="home">home</a> / about </p>
+</section>
+
+<!-- about section starts  -->
+
+<section class="about">
+
+   <div class="image">
+      <img src="{{ url_for('static', filename='img/about-img.jpg')}}" alt="">
+   </div>
+
+   <div class="content">
+      <h3 class="about-title">we have best plans for you</h3>
+      <p> Nutrition is important for living a healthy life. Most people neglect their diet due to which they face many day-to-day health problems. To solve nutrition and diet-based issues, we will 
+         suggest a customized diet plan and water intake levels with reminders according to BMI for a normal routine 
+         diet. Moreover, It will use several defined rules 
+         based on age groups, gender, height range, and weight range and calculate the number of calories required 
+         according to the rules. </p>
+      <p>Moreover, it will also deal with periods of pregnancy (first trimester, second trimester, and third trimester). It will also generate customized diet plans for diabetic, 
+         arthritic, and heart patients.</p>
+   </div>
+   </div>
+
+</section>
+
+<!-- about section ends -->
+
+<!-- nutritionist section starts  -->
+
+<section id="nutritionists">
+
+   <h1 class="heading">Expert Nutritionists</h1>
+
+   <div class="box-container">
+
+      <div class="box">
+         <div class="image">
+            <img src="{{ url_for('static', filename='img/Dr1.jpg')}}" alt="">
+            <div class="share">
+               <a href="#" class="fab fa-facebook-f"></a>
+               <a href="#" class="fab fa-twitter"></a>
+               <a href="#" class="fab fa-instagram"></a>
+               <a href="#" class="fab fa-linkedin"></a>
+            </div>
+         </div>
+         <div class="content">
+            <h3>Dr. Zonaira Masood</h3>
+            <!-- <span>nutritionist</span> -->
+         </div>
+      </div>
+      <div class="box">
+         <div class="image">
+            <img src="{{ url_for('static', filename='img/Dr2.jpg')}}" alt="">
+            <div class="share">
+               <a href="#" class="fab fa-facebook-f"></a>
+               <a href="#" class="fab fa-twitter"></a>
+               <a href="#" class="fab fa-instagram"></a>
+               <a href="#" class="fab fa-linkedin"></a>
+            </div>
+         </div>
+         <div class="content">
+            <h3>Dr. Sajjad Ahmad</h3>
+            <!-- <span>nutritionist</span> -->
+         </div>
+      </div>
+      <div class="box">
+         <div class="image">
+            <img src="{{ url_for('static', filename='img/Dr3.jpg')}}" alt="">
+            <div class="share">
+               <a href="#" class="fab fa-facebook-f"></a>
+               <a href="#" class="fab fa-twitter"></a>
+               <a href="#" class="fab fa-instagram"></a>
+               <a href="#" class="fab fa-linkedin"></a>
+            </div>
+         </div>
+         <div class="content">
+            <h3>Dr. Abdul Jalil Baig</h3>
+            <!-- <span>nutritionist</span> -->
+         </div>
+      </div>
+
+   </div>
+
+</section>
+
+<!-- nutritionists section ends -->
+
+<!--  reviews section starts  -->
+
+<section class="reviews">
+
+   <h1 class="heading"> our customer review </h1>
+
+   <div class="swiper reviews-slider">
+
+      <div class="swiper-wrapper">
+
+         <div class="swiper-slide slide">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim animi atque numquam harum libero nemo,
+               eligendi laboriosam beatae quo iure corrupti, neque rerum possimus non nisi quia! Cumque, tempora sit.
+            </p>
+            <img src="{{ url_for('static', filename='images/pic-1.png')}}" alt="">
+            <h3>john deo</h3>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim animi atque numquam harum libero nemo,
+               eligendi laboriosam beatae quo iure corrupti, neque rerum possimus non nisi quia! Cumque, tempora sit.
+            </p>
+            <img src="{{ url_for('static', filename='images/pic-2.png')}}" alt="">
+            <h3>john deo</h3>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim animi atque numquam harum libero nemo,
+               eligendi laboriosam beatae quo iure corrupti, neque rerum possimus non nisi quia! Cumque, tempora sit.
+            </p>
+            <img src="{{ url_for('static', filename='images/pic-3.png')}}" alt="">
+            <h3>john deo</h3>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim animi atque numquam harum libero nemo,
+               eligendi laboriosam beatae quo iure corrupti, neque rerum possimus non nisi quia! Cumque, tempora sit.
+            </p>
+            <img src="{{ url_for('static', filename='images/pic-4.png')}}" alt="">
+            <h3>john deo</h3>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim animi atque numquam harum libero nemo,
+               eligendi laboriosam beatae quo iure corrupti, neque rerum possimus non nisi quia! Cumque, tempora sit.
+            </p>
+            <img src="{{ url_for('static', filename='images/pic-5.png')}}" alt="">
+            <h3>john deo</h3>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+         </div>
+
+         <div class="swiper-slide slide">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim animi atque numquam harum libero nemo,
+               eligendi laboriosam beatae quo iure corrupti, neque rerum possimus non nisi quia! Cumque, tempora sit.
+            </p>
+            <img src="{{ url_for('static', filename='images/pic-6.png')}}" alt="">
+            <h3>john deo</h3>
+            <div class="stars">
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star"></i>
+               <i class="fas fa-star-half-alt"></i>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+
+</section>
+
+<!--  reviews section ends -->
+
+
+{% endblock %}
+
+
+</body>
+</html>
