@@ -1,0 +1,13 @@
+{
+    "params":
+    {
+        "local_server": "True",
+        "local_uri": "mysql://root:@localhost/nutridiet",
+        "prod_uri": "mysql://root:@localhost/nutridiet",
+        "tag_line": "Get your customised dietplan at home",
+        "gmail-user": "nutridiet1120@gmail.com",
+        "gmail-password": "Nutri1120"
+
+
+    }
+}
