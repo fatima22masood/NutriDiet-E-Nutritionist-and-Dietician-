@@ -1,4 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600&display=swap");
+#loading{
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background: #fff
+	url('../img/loader.gif') no-repeat center center;	
+	z-index: 99999;
+}
 * {
   font-family: "Nunito", sans-serif;
   margin: 0;
@@ -141,129 +149,6 @@ section {
 
 .header .navbar a:hover {
   color: #6b2890;
-}
-
-/* Register login page */
-/* Register login page */
-
-
-
-.container {
-  position: relative;
-  max-width: 430px;
-  width: 100%;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  margin: 60px auto;
-}
-
-.container .forms {
-  display: flex;
-  align-items: center;
-  height: 480px;
-  width: 200%;
-  transition: height 0.2s ease;
-}
-
-.container .form {
-  width: 50%;
-  padding: 30px;
-  background-color: #fff;
-  transition: margin-left 0.18s ease;
-}
-
-.container .form .title-L {
-  position: relative;
-  font-size: 27px;
-  font-weight: 600;
-}
-
-.form .title-L::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 73px;
-  background-color: #6b2890;
-  border-radius: 25px;
-}
-
-.container .form .title-R {
-  position: relative;
-  font-size: 27px;
-  font-weight: 600;
-}
-
-.form .title-R::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 110px;
-  background-color: #6b2890;
-  border-radius: 25px;
-}
-
-.form .input-field {
-  position: relative;
-  height: 50px;
-  width: 100%;
-  margin: 15px 0px;
-}
-
-.input-field input {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  /* padding: 0 35px; */
-  border: none;
-  outline: none;
-  font-size: 16px;
-  border-bottom: 2px solid #ccc;
-  border-top: 2px solid transparent;
-  transition: all 0.2s ease;
-}
-
-.form .text {
-  color: #999;
-  font-size: 14px;
-}
-
-.form a.text {
-  color: #6b2890;
-  text-decoration: none;
-}
-
-.form a:hover {
-  text-decoration: underline;
-}
-
-.forms .btn {
-  background-color: #e70276;
-  color: white;
-  width: 100%;
-  margin-top: 10px;
-  border: none;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.forms .btn:hover {
-  background-color: #6b2890;
-  color: white;
-}
-
-.form .login-signup {
-  margin-top: 30px;
-  text-align: center;
 }
 
 /* Home page */
@@ -525,6 +410,51 @@ section {
 #nutritionists .box-container .box .image.share a:hover {
   color: #6b2890;
 }
+
+/* REVIEW SECTION  */
+
+.reviews .slide {
+  text-align: center;
+}
+
+.reviews .slide p {
+  font-size: 1.5rem;
+  line-height: 2;
+  color: #e70276;
+  position: relative;
+  background: #ffdbed;
+  border: 0.1rem solid #6b2890;
+  margin-bottom: 3rem;
+  padding: 2rem;
+}
+
+.reviews .slide p::before {
+  content: '';
+  position: absolute;
+  bottom: -1.2rem;
+  left: 50%;
+  -webkit-transform: translateX(-50%) rotate(45deg);
+          transform: translateX(-50%) rotate(45deg);
+  background: #ffdbed;
+  border-bottom: 0.1rem solid #6b2890;
+  border-right: 0.1rem solid #6b2890;
+  height: 2rem;
+  width: 2rem;
+}
+
+.reviews .slide h3 {
+  font-size: 2.2rem;
+  text-transform: capitalize;
+  color: #6b2890;
+  padding: .5rem 0;
+}
+
+.swiper .swiper-button-prev, .swiper-button-next{
+  color: #6b2890;
+  /* display: none; */
+  margin: 40px 0 0 0;
+} 
+
 
 /* Contact us */
 .contact .icons-container {
@@ -849,3 +779,4 @@ section {
     font-size: 4rem;
   }
 }
+
