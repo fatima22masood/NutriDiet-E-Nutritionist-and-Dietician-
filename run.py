@@ -1,4 +1,4 @@
-from flask import Flask , render_template , request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
 from datetime import datetime
@@ -6,56 +6,55 @@ import json
 import MySQLdb.cursors
 import re
 
- 
- 
 app = Flask(__name__)
- 
- 
+
 app.secret_key = 'abcd'
- 
+
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'nutridiet'
- 
+
 mysql = MySQL(app)
- 
+
 @app.route('/')
-@app.route('/login', methods =['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM user WHERE username = % s AND password = % s', (username, password, ))
+        cursor.execute('SELECT * FROM user WHERE username = % s AND password = % s', (username, password,))
         account = cursor.fetchone()
         if account:
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
             msg = 'Logged in successfully !'
-            return render_template('index.html', msg = msg)
+            return render_template('index.html', msg=msg)
         else:
             msg = 'Incorrect username / password !'
-    return render_template('login.html', msg = msg)
- 
+    return render_template('login.html', msg=msg)
+
+
 @app.route('/logout')
 def logout():
     session.pop('loggedin', None)
     session.pop('id', None)
     session.pop('username', None)
     return redirect(url_for('login'))
- 
-@app.route('/register', methods =['GET', 'POST'])
+
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM user WHERE username = % s', (username, ))
+        cursor.execute('SELECT * FROM user WHERE username = % s', (username,))
         account = cursor.fetchone()
         if account:
             msg = 'Account already exists !'
@@ -66,20 +65,17 @@ def register():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO user VALUES (NULL,% s, % s, % s)', (username, email,password, ))
+            cursor.execute('INSERT INTO user VALUES (NULL,% s, % s, % s)', (username, email, password,))
             mysql.connection.commit()
             msg = 'You have successfully registered !'
     elif request.method == 'POST':
         msg = 'Please fill out the form !'
-    return render_template('register.html', msg = msg)  
-    
-
+    return render_template('register.html', msg=msg)
 
 
 with open('config.json', 'r') as c:
-    params= json.load(c)["params"]
-local_server= True
-
+    params = json.load(c)["params"]
+local_server = True
 
 if (local_server):
     app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
@@ -87,47 +83,60 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
 
 db = SQLAlchemy(app)
+
+
 class Contact(db.Model):
     '''sno, name, email, phone_num,msg, date'''
     sno = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(20),  nullable=False)
-    phone_num = db.Column(db.String(12),  nullable=False)
-    msg = db.Column(db.String(80),  nullable=False)
-    date = db.Column(db.String, nullable= False)
+    email = db.Column(db.String(20), nullable=False)
+    phone_num = db.Column(db.String(12), nullable=False)
+    msg = db.Column(db.String(80), nullable=False)
+    date = db.Column(db.String, nullable=False)
+
+
 class User(db.Model):
-    id= db.Column(db.Integer, primary_key=True)
-    name=db.Column(db.String(50), unique=False, nullable=False)
-    email=db.Column(db.String(20),  nullable=False)
-    password=db.Column(db.String(20),  nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=False, nullable=False)
+    email = db.Column(db.String(20), nullable=False)
+    password = db.Column(db.String(20), nullable=False)
 
 
 @app.route("/")
 def home():
-    return render_template('index.html', params= params)    
+    return render_template('index.html', params=params)
+
+
 @app.route("/home")
 def home1():
-    return render_template('index.html', params= params)    
+    return render_template('index.html', params=params)
+
+
 @app.route("/about")
 def About():
-    return render_template('about.html', params= params)
-@app.route("/contact", methods= ['GET', 'POST'])
+    return render_template('about.html', params=params)
+
+
+@app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    if (request.method== 'POST'):
+    if (request.method == 'POST'):
         '''Add entry to the database'''
         name = request.form.get('name')
         email = request.form.get('email')
         phone_num = request.form.get('phone_num')
         msg = request.form.get('msg')
         '''sno, name, email, phone_num,msg, date'''
-        
-        entry = Contact (name=name, phone_num= phone_num, msg= msg, email= email)
+
+        entry = Contact(name=name, phone_num=phone_num, msg=msg, email=email)
         db.session.add(entry)
         db.session.commit()
-        
-    return render_template('contact.html', params= params)
 
-@app.route("/services")
-def services():
-    return render_template('services.html', params= params)
+    return render_template('contact.html', params=params)
+
+
+@app.route("/ques")
+def ques():
+    return render_template('ques.html', params=params)
+
+
 app.run(debug=True)
