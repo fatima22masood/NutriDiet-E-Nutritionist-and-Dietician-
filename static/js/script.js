@@ -1,4 +1,34 @@
+//preloader js
+// $(document).ready(function(){
+// 	$('div#loading').removeAttr('id');
+// });
+var preloader = document.getElementById("loading");
+// window.addEventListener('load', function(){
+// 	preloader.style.display = 'none';
+// 	})
 
+function myFunction() {
+  preloader.style.display = "none";
+}
+
+//preloadfer js ending
+
+// initialize swiper js
+
+const swiper = new Swiper(".swiper", {
+  loop: true,
+  // If we need pagination
+  pagination: {
+    el: ".swiper-pagination",
+  },
+  // Navigation arrows
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
+
+// FAQ js
 let accordion = document.querySelectorAll(
   ".faq .accordion-container .accordion"
 );
