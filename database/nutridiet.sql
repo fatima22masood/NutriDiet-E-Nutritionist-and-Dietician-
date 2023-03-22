@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2023 at 08:28 PM
+-- Generation Time: Mar 23, 2023 at 12:21 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.3.27
 
@@ -28,9 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `Admin id` int(10) NOT NULL,
+  `Admin_id` int(10) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_login`
+--
+
+CREATE TABLE `admin_login` (
+  `adlogin_id` int(11) NOT NULL,
+  `email` varchar(20) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `Admin_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -69,7 +82,8 @@ CREATE TABLE `dietplan` (
   `planid` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `fooditems` text NOT NULL,
-  `quantity` varchar(100) NOT NULL
+  `quantity` varchar(100) NOT NULL,
+  `timing` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -92,6 +106,26 @@ CREATE TABLE `query` (
 --
 
 CREATE TABLE `user` (
+  `loginid` int(11) NOT NULL,
+  `email` varchar(20) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `age` int(3) NOT NULL,
+  `Gender` varchar(20) NOT NULL,
+  `Height` int(10) NOT NULL,
+  `weight` int(10) NOT NULL,
+  `Status` varchar(10) NOT NULL,
+  `med_history` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_login`
+--
+
+CREATE TABLE `user_login` (
   `id` int(11) NOT NULL,
   `name` text NOT NULL,
   `username` varchar(50) NOT NULL,
@@ -99,10 +133,10 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `user_login`
 --
 
-INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
+INSERT INTO `user_login` (`id`, `name`, `username`, `password`) VALUES
 (1, '', '', ''),
 (2, 'fatima123', 'fatima123', 'fatima123@gmail.com'),
 (3, 'usama12', 'usama1122@gmail.com', 'usama123');
@@ -115,7 +149,14 @@ INSERT INTO `user` (`id`, `name`, `username`, `password`) VALUES
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
-  ADD PRIMARY KEY (`Admin id`);
+  ADD PRIMARY KEY (`Admin_id`);
+
+--
+-- Indexes for table `admin_login`
+--
+ALTER TABLE `admin_login`
+  ADD PRIMARY KEY (`adlogin_id`),
+  ADD KEY `Admin_id` (`Admin_id`);
 
 --
 -- Indexes for table `contact`
@@ -142,11 +183,24 @@ ALTER TABLE `query`
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
+  ADD PRIMARY KEY (`loginid`),
+  ADD KEY `id` (`id`);
+
+--
+-- Indexes for table `user_login`
+--
+ALTER TABLE `user_login`
   ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin_login`
+--
+ALTER TABLE `admin_login`
+  MODIFY `adlogin_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -170,6 +224,12 @@ ALTER TABLE `query`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
+  MODIFY `loginid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `user_login`
+--
+ALTER TABLE `user_login`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -177,16 +237,28 @@ ALTER TABLE `user`
 --
 
 --
+-- Constraints for table `admin_login`
+--
+ALTER TABLE `admin_login`
+  ADD CONSTRAINT `admin_login_ibfk_1` FOREIGN KEY (`Admin_id`) REFERENCES `admin` (`Admin_id`);
+
+--
 -- Constraints for table `dietplan`
 --
 ALTER TABLE `dietplan`
-  ADD CONSTRAINT `dietplan_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `dietplan_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user_login` (`id`);
 
 --
 -- Constraints for table `query`
 --
 ALTER TABLE `query`
-  ADD CONSTRAINT `query_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `query_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user_login` (`id`);
+
+--
+-- Constraints for table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user_login` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
