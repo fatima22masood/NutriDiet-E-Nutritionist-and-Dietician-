@@ -1,12 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600&display=swap");
+
+
 #loading{
 	position: fixed;
-	width: 100%;
+	width: #
 	height: 100vh;
 	background: #fff
 	url('../img/loader.gif') no-repeat center center;	
 	z-index: 99999;
 }
+
 * {
   font-family: "Nunito", sans-serif;
   margin: 0;
@@ -260,7 +263,7 @@ section {
   padding: 1rem 0;
   font-size: 1.6rem;
   line-height: 2;
-  color: #e70276;
+  color: #000;
 }
 
 /* About us page */
@@ -301,7 +304,7 @@ section {
 .about .content p {
   font-size: 1.5rem;
   line-height: 2;
-  color: #9d3fcf;
+  color: black;
   padding: 1rem 0;
 }
 
