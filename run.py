@@ -50,9 +50,13 @@ def logout():
 def register():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
+
+        email = request.form['email']
         username = request.form['username']
         password = request.form['password']
-        email = request.form['email']
+
+
+
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM user_login WHERE username = % s', (username,))
         account = cursor.fetchone()
@@ -65,7 +69,7 @@ def register():
         elif not username or not password or not email:
             msg = 'Please fill out the form !'
         else:
-            cursor.execute('INSERT INTO user VALUES (NULL,% s, % s, % s)', (username, email, password,))
+            cursor.execute('INSERT INTO user_login (username, email, password) VALUES ( % s, % s, % s)', ( username, email, password,))
             mysql.connection.commit()
             msg = 'You have successfully registered !'
     elif request.method == 'POST':
@@ -95,11 +99,22 @@ class Contact(db.Model):
     date = db.Column(db.String, nullable=False)
 
 
-class User(db.Model):
+class User_login (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=False, nullable=False)
     email = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(20), nullable=False)
+# class User(db.Model):
+#     loginid= db.Column(db.Integer, primary_key=True)
+#
+#     id= db.Column(db.Integer, nullable=False)
+#     Status= db.Column(db.String, nullable=False)
+#     med_history= db.Column(db.String, nullable=False)
+#     age= db.Column(db.Integer, nullable=False)
+#     Gender = db.Column(db.String, nullable=False)
+#     Height = db.Column(db.Float, nullable=False)
+#     weight = db.Column(db.Float, nullable=False)
+#     BMI = db.Column(db.Float, nullable=False)
 
 
 @app.route("/")
@@ -136,6 +151,15 @@ def contact():
 
 @app.route("/ques")
 def ques():
+    # if (request.method == 'POST'):
+    #     age= request.form.get('age')
+    #     Gender= request.form.get('Gender')
+    #     Height= request.form.get('Height')
+    #     weight= request.form.get('weight')
+    #     BMI = request.form.get('BMI')
+    #     entry = User (age=age, Gender= Gender, Height= Height,weight= weight, BMI= BMI )
+    #     db.session.add(entry)
+    #     db.session.commit()
     return render_template('ques.html', params=params)
 
 
