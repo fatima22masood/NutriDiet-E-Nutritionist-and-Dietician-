@@ -6,8 +6,15 @@ import json
 import MySQLdb.cursors
 import re
 
-app = Flask(__name__)
+from forms import UserInfoForm
+from wtforms import TextField, BooleanField
+from wtforms.validators import Required
+from wtforms import StringField
+from flask import Flask, render_template, flash, request,url_for,redirect
+import algo
 
+app = Flask(__name__)
+app.config.from_object(__name__)
 app.secret_key = 'abcd'
 
 app.config['MYSQL_HOST'] = 'localhost'
@@ -17,7 +24,8 @@ app.config['MYSQL_DB'] = 'nutridiet'
 
 mysql = MySQL(app)
 
-@app.route('/')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     msg = ''
@@ -118,14 +126,41 @@ class User_login (db.Model):
 
 
 @app.route("/")
+def index():
+    return render_template('index.html', params=params)
+
+
+@app.route('/home',methods=['GET','POST'])
 def home():
-    return render_template('index.html', params=params)
+	form=UserInfoForm()
+	if form.validate_on_submit():
+		if request.method=='POST':
+			name=request.form['name']
+			weight=float(request.form['weight'])
+			height=float(request.form['height'])
+			age=int(request.form['age'])
+			gender=request.form['gender']
+			phys_act=request.form['physical_activity']
 
+			tdee=algo.calc_tdee(name,weight,height,age,gender,phys_act)
+			return redirect(url_for('result',tdee=tdee))
 
-@app.route("/home")
-def home1():
-    return render_template('index.html', params=params)
+	return render_template('home.html',title="Diet App",form=form)
 
+@app.route('/result',methods=['GET','POST'])
+def result():
+	tdee=request.args.get('tdee')
+	if tdee is None:
+		return render_template('error.html',title="Error Page")
+	
+	tdee=float(tdee)
+	breakfast= algo.bfcalc(tdee)
+	snack1=algo.s1calc(tdee)
+	lunch=algo.lcalc(tdee)
+	snack2=algo.s2calc(tdee)
+	dinner=algo.dcalc(tdee)
+	snack3=algo.s3calc(tdee)
+	return render_template('result.html',title="Result",breakfast=breakfast,snack1=snack1,lunch=lunch,snack2=snack2,dinner=dinner,snack3=snack3)
 
 @app.route("/about")
 def About():
@@ -149,7 +184,7 @@ def contact():
     return render_template('contact.html', params=params)
 
 
-@app.route("/ques")
+@app.route("/ques", methods=['GET', 'POST'])
 def ques():
     # if (request.method == 'POST'):
     #     age= request.form.get('age')
@@ -160,6 +195,20 @@ def ques():
     #     entry = User (age=age, Gender= Gender, Height= Height,weight= weight, BMI= BMI )
     #     db.session.add(entry)
     #     db.session.commit()
+    if request.method == 'POST' and 'age' in request.form and 'Gender' in request.form and 'Height' in request.form and 'weight' in request.form and 'BMI' in request.form:
+        age = request.form['age']
+        Gender = request.form['Gender']
+        Height= request.form['Height']
+        weight = request.form['weight']
+        BMI = request.form['BMI']
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('INSERT INTO user (age, Gender, Height, weight, BMI) VALUES ( % s, % s, % s, %s, %s)',
+                       (age, Gender, Height, weight, BMI))
+        mysql.connection.commit()
+        account = cursor.fetchone()
+
+
     return render_template('ques.html', params=params)
 
 
