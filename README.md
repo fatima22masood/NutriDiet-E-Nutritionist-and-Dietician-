@@ -1,4 +1,4 @@
-# Diet-Recommendation-App
+# NutriDiet
 Recommends a balanced diet based on user information.
 
 # Install Requirements by:
