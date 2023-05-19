@@ -1,16 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL
-from datetime import datetime
 import json
 import MySQLdb.cursors
 import re
-
 from forms import UserInfoForm
 from wtforms import TextField, BooleanField
 from wtforms.validators import Required
 from wtforms import StringField
-from flask import Flask, render_template, flash, request,url_for,redirect
+
 import algo
 
 app = Flask(__name__)
@@ -25,7 +23,7 @@ app.config['MYSQL_DB'] = 'nutridiet'
 mysql = MySQL(app)
 
 
-
+@app.route("/")
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     msg = ''
@@ -125,7 +123,7 @@ class User_login (db.Model):
 #     BMI = db.Column(db.Float, nullable=False)
 
 
-@app.route("/")
+@app.route("/index")
 def index():
     return render_template('index.html', params=params)
 
