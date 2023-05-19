@@ -14,6 +14,7 @@
     <div id="loading"></div>
     <div class="container">
       <!-- <header>Personal Information</header>-->
+      
       <div class="progress-bar">
         <div class="step">
           <p>Age & Gender</p>
@@ -46,7 +47,7 @@
       </div>
       <div class="form-container">
         <div class="form-outer">
-          <form action="#">
+          <form action="{{ url_for('ques') }}" method="post">
             <div class="page slide-page">
               <div class="title">Enter Your Age and Gender:</div>
               <div class="field">
@@ -124,7 +125,7 @@
               </div>
               <div class="field btns">
                 <button class="prev-3 prev">Previous</button>
-                <button class="submit">Submit</button>
+                <button  type="submit" class="submit" >Submit</button>
               </div>
             </div>
           </form>
