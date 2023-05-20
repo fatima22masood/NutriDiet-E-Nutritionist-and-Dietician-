@@ -1,26 +1,54 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
-from flask_mysqldb import MySQL
 import json
-import MySQLdb.cursors
 import re
 from forms import UserInfoForm
-from wtforms import TextField, BooleanField
-from wtforms.validators import Required
-from wtforms import StringField
+from flask import send_file, abort
+from PIL import Image, ImageDraw, ImageFont
+import algo
 
 import algo
 
 app = Flask(__name__)
-app.config.from_object(__name__)
-app.secret_key = 'abcd'
+app.config['SECRET_KEY'] = 'abcd'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/nutridiet'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'nutridiet'
+db = SQLAlchemy(app)
 
-mysql = MySQL(app)
+
+class Contact(db.Model):
+    sno = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(20), nullable=False)
+    phone_num = db.Column(db.String(12), nullable=False)
+    msg = db.Column(db.String(80), nullable=False)
+    date = db.Column(db.String, nullable=False)
+
+
+class UserLogin(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(20), nullable=False)
+    password = db.Column(db.String(20), nullable=False)
+
+
+class UserInfo(db.Model):
+    name = db.Column(db.String, primary_key=True, nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    gender = db.Column(db.String, nullable=False)
+    height = db.Column(db.Float, nullable=False)
+    weight = db.Column(db.Float, nullable=False)
+    phys_act = db.Column(db.Float, nullable=False)
+
+class DietPlanModel(db.Model):
+    tdee = db.Column(db.Float,primary_key=True, nullable=False)
+    breakfast = db.Column(db.String(100), nullable=False)
+    snack1 = db.Column(db.String(100), nullable=False)
+    lunch = db.Column(db.String(100), nullable=False)
+    snack2 = db.Column(db.String(100), nullable=False)
+    dinner = db.Column(db.String(100), nullable=False)
+    snack3 = db.Column(db.String(100), nullable=False)
 
 
 @app.route("/")
@@ -30,17 +58,15 @@ def login():
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
         username = request.form['username']
         password = request.form['password']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM user_login WHERE username = % s AND password = % s', (username, password,))
-        account = cursor.fetchone()
+        account = UserLogin.query.filter_by(username=username, password=password).first()
         if account:
             session['loggedin'] = True
-            session['id'] = account['id']
-            session['username'] = account['username']
-            msg = 'Logged in successfully !'
+            session['id'] = account.id
+            session['username'] = account.username
+            msg = 'Logged in successfully!'
             return render_template('index.html', msg=msg)
         else:
-            msg = 'Incorrect username / password !'
+            msg = 'Incorrect username / password!'
     return render_template('login.html', msg=msg)
 
 
@@ -56,158 +82,136 @@ def logout():
 def register():
     msg = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-
         email = request.form['email']
         username = request.form['username']
         password = request.form['password']
 
-
-
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM user_login WHERE username = % s', (username,))
-        account = cursor.fetchone()
+        account = UserLogin.query.filter_by(username=username).first()
         if account:
-            msg = 'Account already exists !'
+            msg = 'Account already exists!'
         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            msg = 'Invalid email address !'
+            msg = 'Invalid email address!'
         elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'Username must contain only characters and numbers !'
+            msg = 'Username must contain only characters and numbers!'
         elif not username or not password or not email:
-            msg = 'Please fill out the form !'
+            msg = 'Please fill out the form!'
         else:
-            cursor.execute('INSERT INTO user_login (username, email, password) VALUES ( % s, % s, % s)', ( username, email, password,))
-            mysql.connection.commit()
-            msg = 'You have successfully registered !'
+            user_login = UserLogin(username=username, email=email, password=password)
+            db.session.add(user_login)
+            db.session.commit()
+            msg = 'You have successfully registered!'
+
     elif request.method == 'POST':
-        msg = 'Please fill out the form !'
+        msg = 'Please fill out the form!'
+
     return render_template('register.html', msg=msg)
-
-
-with open('config.json', 'r') as c:
-    params = json.load(c)["params"]
-local_server = True
-
-if (local_server):
-    app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
-
-db = SQLAlchemy(app)
-
-
-class Contact(db.Model):
-    '''sno, name, email, phone_num,msg, date'''
-    sno = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=False, nullable=False)
-    email = db.Column(db.String(20), nullable=False)
-    phone_num = db.Column(db.String(12), nullable=False)
-    msg = db.Column(db.String(80), nullable=False)
-    date = db.Column(db.String, nullable=False)
-
-
-class User_login (db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=False, nullable=False)
-    email = db.Column(db.String(20), nullable=False)
-    password = db.Column(db.String(20), nullable=False)
-# class User(db.Model):
-#     loginid= db.Column(db.Integer, primary_key=True)
-#
-#     id= db.Column(db.Integer, nullable=False)
-#     Status= db.Column(db.String, nullable=False)
-#     med_history= db.Column(db.String, nullable=False)
-#     age= db.Column(db.Integer, nullable=False)
-#     Gender = db.Column(db.String, nullable=False)
-#     Height = db.Column(db.Float, nullable=False)
-#     weight = db.Column(db.Float, nullable=False)
-#     BMI = db.Column(db.Float, nullable=False)
 
 
 @app.route("/index")
 def index():
-    return render_template('index.html', params=params)
+    return render_template('index.html')
 
 
-@app.route('/home',methods=['GET','POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def home():
-	form=UserInfoForm()
-	if form.validate_on_submit():
-		if request.method=='POST':
-			name=request.form['name']
-			weight=float(request.form['weight'])
-			height=float(request.form['height'])
-			age=int(request.form['age'])
-			gender=request.form['gender']
-			phys_act=request.form['physical_activity']
+    form = UserInfoForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        weight = float(form.weight.data)
+        height = float(form.height.data)
+        age = int(form.age.data)
+        gender = request.form['gender']
+        phys_act = request.form['physical_activity']
 
-			tdee=algo.calc_tdee(name,weight,height,age,gender,phys_act)
-			return redirect(url_for('result',tdee=tdee))
+        user_info = UserInfo(name=name, weight=weight, height=height, age=age, gender=gender, phys_act=phys_act)
+        db.session.add(user_info)
+        db.session.commit()
 
-	return render_template('home.html',title="Diet App",form=form)
+        tdee = algo.calc_tdee(name, weight, height, age, gender, phys_act)
+        return redirect(url_for('result', tdee=tdee))
 
-@app.route('/result',methods=['GET','POST'])
+    return render_template('home.html', title="NutriDiet", form=form)
+
+
+
+@app.route('/result', methods=['GET', 'POST'])
 def result():
-	tdee=request.args.get('tdee')
-	if tdee is None:
-		return render_template('error.html',title="Error Page")
-	
-	tdee=float(tdee)
-	breakfast= algo.bfcalc(tdee)
-	snack1=algo.s1calc(tdee)
-	lunch=algo.lcalc(tdee)
-	snack2=algo.s2calc(tdee)
-	dinner=algo.dcalc(tdee)
-	snack3=algo.s3calc(tdee)
-	return render_template('result.html',title="Result",breakfast=breakfast,snack1=snack1,lunch=lunch,snack2=snack2,dinner=dinner,snack3=snack3)
+    tdee = request.args.get('tdee')
+    if tdee is None:
+        return render_template('error.html', title="Error Page")
+
+    tdee = float(tdee)
+    breakfast = algo.bfcalc(tdee)
+    snack1 = algo.s1calc(tdee)
+    lunch = algo.lcalc(tdee)
+    snack2 = algo.s2calc(tdee)
+    dinner = algo.dcalc(tdee)
+    snack3 = algo.s3calc(tdee)
+
+    dietplan = DietPlanModel(tdee=tdee, breakfast=breakfast, snack1=snack1, lunch=lunch, snack2=snack2, dinner=dinner, snack3=snack3)
+    db.session.add(dietplan)
+    db.session.commit()
+    
+    return render_template('result.html', title="Result", breakfast=breakfast, snack1=snack1, lunch=lunch,
+                           snack2=snack2, dinner=dinner, snack3=snack3, tdee=tdee)
+
+@app.route('/download', methods=['POST'])
+def download():
+    tdee = request.form.get('tdee')
+    if not tdee:
+        abort(404, "TDEE parameter is missing.")
+
+    try:
+        tdee = float(tdee)
+    except ValueError:
+        abort(404, "Invalid TDEE value.")
+
+    # Generate the diet plan based on the tdee value
+    breakfast = algo.bfcalc(tdee)
+    snack1 = algo.s1calc(tdee)
+    lunch = algo.lcalc(tdee)
+    snack2 = algo.s2calc(tdee)
+    dinner = algo.dcalc(tdee)
+    snack3 = algo.s3calc(tdee)
+
+    # Create a text file with the diet plan content
+    content = f"Breakfast: {breakfast}\n" \
+              f"Snack 1: {snack1}\n" \
+              f"Lunch: {lunch}\n" \
+              f"Snack 2: {snack2}\n" \
+              f"Dinner: {dinner}\n" \
+              f"Snack 3: {snack3}"
+
+    # Save the diet plan to a temporary file
+    filename = 'diet_plan.txt'
+    with open(filename, 'w') as file:
+        file.write(content)
+
+    # Send the file for download
+    return send_file(filename, as_attachment=True)
+
 
 @app.route("/about")
-def About():
-    return render_template('about.html', params=params)
+def about():
+    return render_template('about.html')
 
 
 @app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    if (request.method == 'POST'):
-        '''Add entry to the database'''
+    if request.method == 'POST':
         name = request.form.get('name')
         email = request.form.get('email')
         phone_num = request.form.get('phone_num')
         msg = request.form.get('msg')
-        '''sno, name, email, phone_num,msg, date'''
 
         entry = Contact(name=name, phone_num=phone_num, msg=msg, email=email)
         db.session.add(entry)
         db.session.commit()
 
-    return render_template('contact.html', params=params)
+    return render_template('contact.html')
 
 
-@app.route("/ques", methods=['GET', 'POST'])
-def ques():
-    # if (request.method == 'POST'):
-    #     age= request.form.get('age')
-    #     Gender= request.form.get('Gender')
-    #     Height= request.form.get('Height')
-    #     weight= request.form.get('weight')
-    #     BMI = request.form.get('BMI')
-    #     entry = User (age=age, Gender= Gender, Height= Height,weight= weight, BMI= BMI )
-    #     db.session.add(entry)
-    #     db.session.commit()
-    if request.method == 'POST' and 'age' in request.form and 'Gender' in request.form and 'Height' in request.form and 'weight' in request.form and 'BMI' in request.form:
-        age = request.form['age']
-        Gender = request.form['Gender']
-        Height= request.form['Height']
-        weight = request.form['weight']
-        BMI = request.form['BMI']
 
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO user (age, Gender, Height, weight, BMI) VALUES ( % s, % s, % s, %s, %s)',
-                       (age, Gender, Height, weight, BMI))
-        mysql.connection.commit()
-        account = cursor.fetchone()
+if __name__ == '__main__':
+    app.run(debug=True)
 
-
-    return render_template('ques.html', params=params)
-
-
-app.run(debug=True)
