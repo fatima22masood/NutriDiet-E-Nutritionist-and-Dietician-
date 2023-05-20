@@ -1,48 +1,50 @@
-//preloader js
-// $(document).ready(function(){
-// 	$('div#loading').removeAttr('id');
-// });
-var preloader = document.getElementById("loading");
-// window.addEventListener('load', function(){
-// 	preloader.style.display = 'none';
-// 	})
+// JavaScript code for loader
 
+// Wait for the DOM to be fully loaded
 function myFunction() {
-  preloader.style.display = "none";
+  // Hide the loader element
+  var loader = document.getElementById("loading");
+  loader.style.display = "none";
 }
 
-//preloadfer js ending
+//loader js ending
 
-// initialize swiper js
 
-const swiper = new Swiper(".swiper", {
-  loop: true,
-  // If we need pagination
-  pagination: {
-    el: ".swiper-pagination",
-  },
-  // Navigation arrows
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-});
+// JavaScript code to initialize Swiper
 
-// FAQ js
-let accordion = document.querySelectorAll(
-  ".faq .accordion-container .accordion"
-);
-
-accordion.forEach((acco) => {
-  acco.onclick = () => {
-    accordion.forEach((dion) => dion.classList.remove("active"));
-    acco.classList.toggle("active");
-  };
-});
-
-document.querySelector(".load-more .btn").onclick = () => {
-  document.querySelectorAll(".contact .box-container .hide").forEach((show) => {
-    show.style.display = "block";
+// Wait for the DOM to be fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize Swiper
+  var swiper = new Swiper('.reviews-slider', {
+    // Set the desired configuration options for the slider
+    loop: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
   });
-  document.querySelector(".load-more .btn").style.display = "none";
-};
+});
+
+
+// JavaScript code for FAQ section
+document.addEventListener("DOMContentLoaded", function () {
+  var accordions = document.querySelectorAll(".faq .accordion");
+
+  accordions.forEach(function (accordion) {
+    accordion.addEventListener("click", function () {
+      var isActive = this.classList.contains("active");
+
+      accordions.forEach(function (otherAccordion) {
+        otherAccordion.classList.remove("active");
+        var accordionContent = otherAccordion.querySelector(".accordion-content");
+        accordionContent.style.maxHeight = null;
+      });
+
+      if (!isActive) {
+        this.classList.add("active");
+        var accordionContent = this.querySelector(".accordion-content");
+        accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+      }
+    });
+  });
+});
