@@ -14,10 +14,13 @@
     <!-- custom css file link  -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
-    />
+    <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+
 </head>
 
 <body onload="myFunction()">
@@ -47,38 +50,30 @@
         <div class="box-container">
           <div class="box">
             <h3>Quick links</h3>
-            <a href="#index">Home</a>
-            <a href="#about">About</a>
-            <!--<a href="#services">services</a>-->
-            <a href="#contact">Contact</a>
-          </div>
-  
-          <div class="box">
-            <h3>Extra links</h3>
-            <a href="#">my account</a>
-            <a href="#">terms of use</a>
-            <a href="#">privacy policy</a>
+            <a href="index">Home</a>
+            <a href="about">About</a>
+            <a href="contact">Contact</a>
           </div>
   
           <div class="box">
             <h3>Contact info</h3>
-            <a href="#"> <i class="fab fa-whatsapp"></i> +92 308 6787451 </a>
-            <a href="#">
+            <a href=""> <i class="fab fa-whatsapp"></i> +92 308 6787451 </a>
+            <a href="">
               <i class="fas fa-envelope"></i> nutridiet112010@gmail.com
             </a>
-            <a href="#"> <i class="fas fa-map"></i> Punjab - Pakistan</a>
+            <a href=""> <i class="fas fa-map"></i> Punjab - Pakistan</a>
           </div>
   
           <div class="box">
             <h3>Follow us</h3>
             <a href="https://www.facebook.com/profile.php?id=100086596099314">
-              <i class="fab fa-facebook-f"></i> facebook
+              <i class="fab fa-facebook-f"></i> Facebook
             </a>
-            <a href="https://twitter.com/NutriDiet4">
-              <i class="fab fa-twitter"></i> twitter
+            <a href="https://youtu.be/qwGZzkMFbwc">
+              <i class="fab fa-youtube"></i> YouTube
             </a>
             <a href="https://instagram.com/nutri_diet2022?igshid=YmMyMTA2M2Y=">
-              <i class="fab fa-instagram"></i> instagram
+              <i class="fab fa-instagram"></i> Instagram
             </a>
           </div>
         </div>
@@ -91,8 +86,6 @@
   
       <!-- footer section ends -->
   
-      <!-- custom js file link  -->
-      <script src="{{ url_for('static', filename='js/script.js')}}"></script>
     </body>
   </html>
   

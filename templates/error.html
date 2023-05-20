@@ -1,5 +1,6 @@
 {% extends "home.html" %}
 {% block main %}
 	<h1>OOOOOOOPS!!! Page is not ready</h1>
-	<button type="button" class="btn btn-success" onClick= "location.href = '{{url_for("home") }}' " role="button">Back</button>
+	<a href="{{ url_for('home') }}" class="btn btn-success" id="btn">Back</a>
+
 {% endblock %}

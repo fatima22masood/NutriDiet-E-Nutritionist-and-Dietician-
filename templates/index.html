@@ -10,9 +10,7 @@
 
         <p>. To solve nutrition and diet-based issues, </p>
         <p> NutriDiet generates a customized diet plan.</p>
-        <p>Do you want to get one?</p>
         
-        <button class="btn"> <a href="{{url_for('home')}}"> Generate Dietplan now </a></button>
     </section>
 
     <!-- home section ends -->
@@ -43,7 +41,7 @@
                 </div>
                 <div class="content">
                     <p>Are you excited to lose weight? Embark on a transformative journey towards your dream body with our scientifically-proven diet plan, expertly designed to help you shed those extra pounds and reveal a healthier, more confident you.</p>
-                    <a href="{{url_for('ques')}}" class="btn">Get Diet Plan</a>
+                    <a href="{{url_for('home')}}" class="btn">Get Diet Plan</a>
                 </div>
             
             </div>
@@ -54,43 +52,10 @@
                 </div>
                 <div class="content">
                     <p> Are you underweight? Experience a transformation like never before as our specialized diet plan guides you on a journey towards healthy weight gain, and offering a delicious array of calorie-rich meals.</p>
-                    <a href="{{url_for('ques')}}" class="btn">Get Diet Plan</a>
+                    <a href="{{url_for('home')}}" class="btn">Get Diet Plan</a>
                 </div>
             
-            <!-- </div>
-            <div class="box">
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/7.jpg')}}" alt="">
-                    <h3>Arthritis</h3>
-                </div>
-                <div class="content">
-                    <p>Are you worried about your bones and suffering from arthiritis? Get a customized diet plan for healthy bones.</p>
-                    <a href="{{url_for('ques')}}" class="btn">Get Diet Plan</a>
-                </div>
             
-            </div> -->
-            <!-- <div class="box">
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/8.jpg')}}" alt="">
-                    <h3>Diabities</h3>
-                </div>
-                <div class="content">
-                    <p>Are you one of those having diabetes? Don't worry and get a customized diet plan for healthy body.</p>
-                    <a href="{{url_for('ques')}}" class="btn">Get Diet Plan</a>
-                </div>
-            
-            </div> -->
-            <!-- <div class="box">
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/6.jpg')}}" alt="">
-                    <h3>Water Remainder</h3>
-                </div>
-                <div class="content">
-                    <p>Are you feeling dehydrated? Set water intake level reminder according to your body need to feel fresh and hydrated.</p>
-                    <a href="#" class="btn">Set Remainder</a>
-                </div>
-            </div>
-             -->
         </div>
     </section>
     {% endblock %}
