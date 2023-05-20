@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    background: url(../img/lgn-bg.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    background: #fff;
+    border-radius: 5px;
+    padding: 40px 35px 10px 35px;
+    margin-top: 30px;
+}
+
+.form-container {
+    background-color: white;
+    padding: 0 35px 0 35px;
+    margin: 35px;
+}
+label{
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+#btn{
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 1rem 3rem;
+    font-size: 1.8rem;
+    border: 0.1rem solid #6b2890;
+    border-radius: 25px;
+    background: #6b2890;
+    color: #f0fdfa;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+
+#btn:hover {
+    background: #e70276;
+    color: #fff;
+    border: 0.1rem solid #e70276;
+    border-radius: 25px;
+}
+
+#chart {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#chart td,
+#chart th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#chart tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#chart tr:hover {
+    background-color: #ddd;
+}
+
+#chart th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #6b2890;
+    color: white;
+}
+.buttons{
+    text-align: center;
+    justify-content: center;
+}
+
+
+  
+  
