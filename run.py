@@ -116,7 +116,7 @@ def register():
             id = user_login.id
 
             # Create the associated UserInfo instance
-            name = request.form['name']
+            name = request.form.get('name', '')
             age = int(request.form['age'])
             gender = request.form['gender']
             height = float(request.form['height'])
