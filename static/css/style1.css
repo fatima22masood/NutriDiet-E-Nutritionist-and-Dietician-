@@ -20,6 +20,13 @@
   -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+.msg{
+  display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 15px;
+}
 
 img {
   -webkit-user-select: none;
@@ -42,7 +49,7 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: #6b2890;
+  background: #30642c;
 }
 
 section {
@@ -54,7 +61,7 @@ section {
   margin-bottom: 3rem;
   font-size: 3.5rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
 }
 
 .btn {
@@ -62,18 +69,18 @@ section {
   margin-top: 1rem;
   padding: 1rem 3rem;
   font-size: 1.8rem;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #30642c;
   border-radius: 25px;
   background: #f0fdfa;
-  color: #6b2890;
+  color: #30642c;
   cursor: pointer;
   text-transform: capitalize;
 }
 
 .btn:hover {
-  background: #6b2890;
+  background: #30642c;
   color: #fff;
-  border: 0.1rem solid #482b70;
+  border: 0.1rem solid #30642c;
   border-radius: 25px;
 }
 
@@ -123,7 +130,7 @@ body {
   bottom: 0;
   height: 3px;
   width: 73px;
-  background-color: #6b2890;
+  background-color: #30642c;
   border-radius: 25px;
 }
 
@@ -140,7 +147,7 @@ body {
   bottom: 0;
   height: 3px;
   width: 110px;
-  background-color: #6b2890;
+  background-color: #30642c;
   border-radius: 25px;
 }
 
@@ -170,7 +177,7 @@ body {
 }
 
 .form a.text {
-  color: #6b2890;
+  color: #30642c;
   text-decoration: none;
 }
 
@@ -179,7 +186,7 @@ body {
 }
 
 .forms .btn {
-  background-color: #e70276;
+  background-color: #90b721;
   color: white;
   width: 100%;
   margin-top: 10px;
@@ -193,7 +200,7 @@ body {
 }
 
 .forms .btn:hover {
-  background-color: #6b2890;
+  background-color: #30642c;
   color: white;
 }
 

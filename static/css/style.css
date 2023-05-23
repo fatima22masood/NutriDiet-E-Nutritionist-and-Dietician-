@@ -44,7 +44,7 @@ html::-webkit-scrollbar-track {
 }
 
 html::-webkit-scrollbar-thumb {
-  background: #6b2890;
+  background: #679B62;
 }
 
 section {
@@ -61,29 +61,14 @@ section {
 .heading-link h3 {
   font-size: 4rem;
   text-transform: capitalize;
-  color: #e70276;
-}
-
-.heading-link p {
-  font-size: 2rem;
-  line-height: 2;
-  color: #e70276;
-}
-
-.heading-link p a {
-  color: #6b2890;
-}
-
-.heading-link p a:hover {
-  text-decoration: underline;
+  color: #30642c;
 }
 
 .heading {
   text-align: center;
   margin-bottom: 3rem;
   font-size: 3.5rem;
-  text-transform: capitalize;
-  color: #e70276;
+  color: #30642c;
 }
 
 .btn {
@@ -91,16 +76,16 @@ section {
   margin-top: 1rem;
   padding: 1rem 3rem;
   font-size: 1.8rem;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
   border-radius: 25px;
   background: #f0fdfa;
-  color: #6b2890;
+  color: #679B62;
   cursor: pointer;
   text-transform: capitalize;
 }
 
 .btn:hover {
-  background: #6b2890;
+  background: #679B62;
   color: #fff;
   border: 0.1rem solid #482b70;
   border-radius: 25px;
@@ -131,9 +116,9 @@ section {
 }
 
 .header .logo img {
-  color: #6b2890;
-  height: 100px;
-  width: 100px;
+  color: #679B62;
+  height: 130px;
+  width: 130px;
   margin: 3px 6px;
   border: 1px solid white;
   border-radius: 25px;
@@ -147,11 +132,11 @@ section {
   margin-right: 2rem;
   font-size: 2rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
 }
 
 .header .navbar a:hover {
-  color: #6b2890;
+  color: #679B62;
 }
 
 /* Home page */
@@ -173,37 +158,37 @@ section {
   left: 0px;
   width: 100%;
   z-index: -1;
-  opacity: 0.89;
+  opacity: 0.7;
 }
 
 #home h1 {
-  color: #482b70;
+  color: #30642c;
   text-align: center;
   font-family: cursive;
   font-size: 5rem;
 }
 
 #home p {
-  color: #e70276;
+  color: black;
   text-align: center;
   font-size: 2rem;
   font-family: cursive;
 }
 
 #home .btn {
-  background-color: #e70276;
+  background-color: #90b721;
   color: white;
 }
 
 #home .btn:hover {
-  color: #6b2890;
+  color: #679B62;
   text-decoration: underline;
 }
 
 /* Services Section */
 
 #services h1 {
-  color: #6b2890;
+  color: #679B62;
 }
 
 #services .box-container {
@@ -239,7 +224,7 @@ section {
 #services .box-container .box .image h3 {
   font-size: 1.5rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -250,13 +235,13 @@ section {
 #services .box-container .box .content {
   padding: 2rem;
   text-align: center;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
 }
 
 #services .box-container .box .content h3 {
   font-size: 2rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
 }
 
 #services .box-container .box .content p {
@@ -298,7 +283,7 @@ section {
 .about .content .about-title {
   font-size: 3rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
 }
 
 .about .content p {
@@ -319,7 +304,7 @@ section {
 
 .about .content .icons-container .icons {
   text-align: center;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
   background: #f0fdfa;
   padding: 3rem 2rem;
 }
@@ -333,17 +318,17 @@ section {
   padding: 0.5rem 0;
   font-size: 3rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
 }
 
 .about .content .icons-container .icons span {
   font-size: 1.5rem;
   line-height: 2;
-  color: #e70276;
+  color: #90b721;
 }
 
 #nutritionists h1 {
-  color: #e70276;
+  color: #30642c;
 }
 
 #nutritionists .box-container {
@@ -379,20 +364,20 @@ section {
 #nutritionists .box-container .box .content {
   padding: 2rem;
   text-align: center;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
 }
 
 #nutritionists .box-container .box .content h3 {
   font-size: 2rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
 }
 
 #nutritionists .box-container .box .content span {
   padding: 1rem 0;
   font-size: 1.6rem;
   line-height: 2;
-  color: #e70276;
+  color: #90b721;
 }
 
 #nutritionists .box-container .box .image .share {
@@ -411,7 +396,7 @@ section {
 }
 
 #nutritionists .box-container .box .image.share a:hover {
-  color: #6b2890;
+  color: #679B62;
 }
 
 /* REVIEW SECTION  */
@@ -423,10 +408,10 @@ section {
 .reviews .slide p {
   font-size: 1.5rem;
   line-height: 2;
-  color: #e70276;
+  color: black;
   position: relative;
-  background: #ffdbed;
-  border: 0.1rem solid #6b2890;
+  background: #daf8d7;
+  border: 0.1rem solid #679B62;
   margin-bottom: 3rem;
   padding: 2rem;
 }
@@ -438,9 +423,9 @@ section {
   left: 50%;
   -webkit-transform: translateX(-50%) rotate(45deg);
           transform: translateX(-50%) rotate(45deg);
-  background: #ffdbed;
-  border-bottom: 0.1rem solid #6b2890;
-  border-right: 0.1rem solid #6b2890;
+  background: #daf8d7;
+  border-bottom: 0.1rem solid #679B62;
+  border-right: 0.1rem solid #679B62;
   height: 2rem;
   width: 2rem;
 }
@@ -448,13 +433,13 @@ section {
 .reviews .slide h3 {
   font-size: 2.2rem;
   text-transform: capitalize;
-  color: #6b2890;
+  color: #679B62;
   padding: .5rem 0;
 }
 
 .swiper-button-prev,
 .swiper-button-next {
-  color: #6b2890;
+  color: #679B62;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -484,7 +469,7 @@ section {
 .contact .icons-container .icons {
   text-align: center;
   padding: 3rem 2rem;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
   background: #f0fdfa;
 }
 
@@ -496,20 +481,20 @@ section {
   border-radius: 50%;
   margin-bottom: 0.5rem;
   color: #fff;
-  background: #6b2890;
+  background: #679B62;
 }
 
 .contact .icons-container .icons h3 {
   font-size: 2rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
   padding: 0.5rem 0;
 }
 
 .contact .icons-container .icons p {
   font-size: 1.5rem;
   line-height: 2;
-  color: #e70276;
+  color: #90b721;
 }
 
 .contact .row {
@@ -538,27 +523,27 @@ section {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 40rem;
   flex: 1 1 40rem;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
   padding: 2rem;
 }
 
 .contact .row form h3 {
   font-size: 2.5rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
   padding-bottom: 1rem;
 }
 
 .contact .row form .box {
   width: 100%;
   padding: 1.2rem 1.4rem;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
   font-size: 1.6rem;
   margin: 0.7rem 0;
 }
 
 .contact .row form .box:focus {
-  background: #6b2890;
+  background: #679B62;
   color: #fff;
 }
 
@@ -599,11 +584,11 @@ section {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 40rem;
   flex: 1 1 40rem;
-  border: 0.1rem solid #6b2890;
+  border: 0.1rem solid #679B62;
 }
 
 .faq .accordion-container .accordion.active .accordion-heading {
-  background: #6b2890;
+  background: #679B62;
 }
 
 .faq .accordion-container .accordion.active .accordion-heading h3 {
@@ -638,20 +623,20 @@ section {
 .faq .accordion-container .accordion .accordion-heading h3 {
   font-size: 2rem;
   text-transform: capitalize;
-  color: #e70276;
+  color: #90b721;
 }
 
 .faq .accordion-container .accordion .accordion-heading i {
   font-size: 2rem;
-  color: #6b2890;
+  color: #679B62;
 }
 
 .faq .accordion-container .accordion .accordion-content {
   padding: 1.5rem;
   font-size: 1.5rem;
   line-height: 2;
-  color: #e70276;
-  border-top: 0.1rem solid #6b2890;
+  color: #90b721;
+  border-top: 0.1rem solid #679B62;
   display: none;
 }
 
@@ -665,7 +650,7 @@ section {
       to(rgba(0, 0, 0, 0.5))
     ),
     url(../images/footer-bg.jpg) no-repeat;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(../img/footer-bg.jpg) no-repeat;
   background-size: cover;
   background-position: center;
@@ -699,7 +684,7 @@ section {
 }
 
 .footer .box-container .box a:hover {
-  color: #e70276;
+  color: #90b721;
 }
 
 .footer .box-container .box a:hover i {
@@ -716,7 +701,7 @@ section {
 }
 
 .footer .credit span {
-  color: #e70276;
+  color: #90b721;
 }
 
 /* Media Queries */

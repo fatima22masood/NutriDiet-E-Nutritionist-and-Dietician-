@@ -1,6 +1,6 @@
 body {
     display: flex;
-    background: url(../img/lgn-bg.jpg) no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/lgn-bg.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -17,6 +17,22 @@ body {
     padding: 0 35px 0 35px;
     margin: 35px;
 }
+.logo {
+    margin: auto;
+  }
+  
+.logo img {
+    color: #679B62;
+    height: 150px;
+    width: 150px;
+    margin: 3px 6px 10px 6px;
+    border: 1px solid white;
+    border-radius: 25px;
+  }
+  
+.my-form{
+    margin-top: 20px;
+  }
 label{
     display: inline-block;
     max-width: 100%;
@@ -26,13 +42,13 @@ label{
 }
 
 #btn{
-    display: inline-block;
+    display: flex;
     margin-top: 1rem;
     padding: 1rem 3rem;
     font-size: 1.8rem;
-    border: 0.1rem solid #6b2890;
+    border: 0.1rem solid #679B62;
     border-radius: 25px;
-    background: #6b2890;
+    background: #679B62;
     color: #f0fdfa;
     cursor: pointer;
     text-transform: capitalize;
@@ -40,9 +56,9 @@ label{
 
 
 #btn:hover {
-    background: #e70276;
+    background: #90b721;
     color: #fff;
-    border: 0.1rem solid #e70276;
+    border: 0.1rem solid #90b721;
     border-radius: 25px;
 }
 
@@ -70,8 +86,8 @@ label{
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #6b2890;
-    color: white;
+    background-color: white;
+    color: #679B62;
 }
 .buttons{
     text-align: center;
