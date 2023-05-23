@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
-import json
+from fpdf import FPDF
 import re
 from forms import UserInfoForm
 from flask import send_file, abort
@@ -57,6 +57,7 @@ class DietPlanModel(db.Model):
     id = db.Column(db.Integer, db.ForeignKey("user_login.id"), nullable=False)
 
 
+
 @app.route("/")
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -90,23 +91,28 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    msg = ''
-    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form:
-        email = request.form['email']
-        username = request.form['username']
-        password = request.form['password']
+    msg = ""
+    if (
+        request.method == "POST"
+        and "username" in request.form
+        and "password" in request.form
+        and "email" in request.form
+    ):
+        email = request.form["email"]
+        username = request.form["username"]
+        password = request.form["password"]
 
         account = UserLogin.query.filter_by(username=username).first()
         if account:
-            msg = 'Account already exists!'
-        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-            msg = 'Invalid email address!'
-        elif not re.match(r'[A-Za-z0-9]+', username):
-            msg = 'Username must contain only characters and numbers!'
+            msg = "Account already exists!"
+        elif not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            msg = "Invalid email address!"
+        elif not re.match(r"[A-Za-z0-9]+", username):
+            msg = "Username must contain only characters and numbers!"
         elif not username or not password or not email:
-            msg = 'Please fill out the form!'
+            msg = "Please fill out the form!"
         else:
             user_login = UserLogin(username=username, email=email, password=password)
             db.session.add(user_login)
@@ -115,30 +121,11 @@ def register():
             # Get the id from the newly created UserLogin instance
             id = user_login.id
 
-            # Create the associated UserInfo instance
-            name = request.form.get('name', '')
-            age = int(request.form['age'])
-            gender = request.form['gender']
-            height = float(request.form['height'])
-            weight = float(request.form['weight'])
-            phys_act = request.form['physical_activity']
-            user_info = UserInfo(
-                name=name,
-                age=age,
-                gender=gender,
-                height=height,
-                weight=weight,
-                phys_act=phys_act,
-                id=user_login.id
-            )
-            db.session.add(user_info)
+            msg = "You have successfully registered!"
+    elif request.method == "POST":
+        msg = "Please fill out the form!"
 
-            msg = 'You have successfully registered!'
-    elif request.method == 'POST':
-        msg = 'Please fill out the form!'
-
-    return render_template('register.html', msg=msg)
-
+    return render_template("register.html", msg=msg)
 
 
 @app.route("/index")
@@ -163,7 +150,7 @@ def home():
         # Retrieve the UserLogin instance based on the ID
         user_login = UserLogin.query.get(user_id)
 
-        # Create the UserInfo instance associated with the UserLogin instance
+        # Create a new UserInfo instance for the user
         user_info = UserInfo(
             name=name,
             weight=weight,
@@ -171,7 +158,7 @@ def home():
             age=age,
             gender=gender,
             phys_act=phys_act,
-            user_login=user_login  # Associate with the UserLogin instance
+            id=user_id,  # Assign the user_id directly to id
         )
 
         db.session.add(user_info)
@@ -206,7 +193,7 @@ def result():
         snack2=snack2,
         dinner=dinner,
         snack3=snack3,
-        user_login=user_login
+        id=user_login.id,
     )
 
     db.session.add(dietplan)
@@ -225,6 +212,29 @@ def result():
     )
 
 
+
+# Define a custom class for PDF generation
+class PDF(FPDF):
+    def header(self):
+        self.set_font("Arial", "B", 12)
+        self.cell(0, 10, "NutriDiet - Diet Plan", 0, 1, "C")
+
+    def footer(self):
+        self.set_y(-15)
+        self.set_font("Arial", "I", 8)
+        self.cell(0, 10, f"Page {self.page_no()}", 0, 0, "C")
+
+    def chapter_title(self, title):
+        self.set_font("Arial", "B", 12)
+        self.cell(0, 10, title, 0, 1, "L")
+        self.ln(5)
+
+    def chapter_body(self, content):
+        self.set_font("Arial", "", 12)
+        self.multi_cell(0, 10, content)
+        self.ln(10)
+
+
 @app.route("/download", methods=["POST"])
 def download():
     tdee = request.form.get("tdee")
@@ -236,28 +246,44 @@ def download():
     except ValueError:
         abort(404, "Invalid TDEE value.")
 
-    # Generate the diet plan based on the tdee value
-    breakfast = algo.bfcalc(tdee)
-    snack1 = algo.s1calc(tdee)
-    lunch = algo.lcalc(tdee)
-    snack2 = algo.s2calc(tdee)
-    dinner = algo.dcalc(tdee)
-    snack3 = algo.s3calc(tdee)
+    # Retrieve the diet plans for the user ID
+    user_login = UserLogin.query.get(session["id"])
+    diet_plans = DietPlanModel.query.filter_by(id=user_login.id).all()
 
-    # Create a text file with the diet plan content
-    content = (
-        f"Breakfast: {breakfast}\n"
-        f"Snack 1: {snack1}\n"
-        f"Lunch: {lunch}\n"
-        f"Snack 2: {snack2}\n"
-        f"Dinner: {dinner}\n"
-        f"Snack 3: {snack3}"
-    )
+    if not diet_plans:
+        abort(404, "No diet plans found.")
 
-    # Save the diet plan to a temporary file
-    filename = "diet_plan.txt"
-    with open(filename, "w") as file:
-        file.write(content)
+    # Create a PDF with the diet plan content
+    pdf = PDF()
+    pdf.add_page()
+
+    for diet_plan in diet_plans:
+        breakfast = diet_plan.breakfast
+        snack1 = diet_plan.snack1
+        lunch = diet_plan.lunch
+        snack2 = diet_plan.snack2
+        dinner = diet_plan.dinner
+        snack3 = diet_plan.snack3
+
+        pdf.chapter_title("Diet Plan")
+        pdf.chapter_body(f"TDEE: {diet_plan.tdee}")
+        pdf.chapter_title("Breakfast")
+        pdf.chapter_body(breakfast)
+        pdf.chapter_title("Snack 1")
+        pdf.chapter_body(snack1)
+        pdf.chapter_title("Lunch")
+        pdf.chapter_body(lunch)
+        pdf.chapter_title("Snack 2")
+        pdf.chapter_body(snack2)
+        pdf.chapter_title("Dinner")
+        pdf.chapter_body(dinner)
+        pdf.chapter_title("Snack 3")
+        pdf.chapter_body(snack3)
+        pdf.add_page()
+
+    # Save the PDF to a temporary file
+    filename = "diet_plans.pdf"
+    pdf.output(filename)
 
     # Send the file for download
     return send_file(filename, as_attachment=True)
