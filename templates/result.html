@@ -4,9 +4,9 @@
   <table id="chart">
     <tr>
       <th>
-        <h3>
+        <h2>
           <center>DIET CHART</center>
-        </h3>
+        </h2>
       </th>
     </tr>
     <tr>
@@ -33,11 +33,10 @@
     </tr>
   </table>
   <div class="buttons">
-    <a href="{{ url_for('home') }}" class="btn btn-success" id="btn">Back</a>
-    <a href="{{ url_for('index') }}" class="btn btn-success" id="btn">Go to HomePage</a>
+    <button type="submit" class="btn btn-primary" id="btn"><a href="{{ url_for('index') }}">Home</a></button>
     <form action="{{ url_for('download') }}" method="post">
       <input type="hidden" name="tdee" value="{{ tdee }}">
-      <button type="submit" class="btn btn-primary" id="btn">Download Diet Plan</button>
+      <button type="submit" class="btn btn-primary" id="btn">Download</button>
     </form>
   </div>
 {% endblock %}

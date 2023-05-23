@@ -7,7 +7,7 @@
 	<link rel="stylesheet" media="screen" href="{{url_for('static',filename = 'css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="static/bootstrap-theme.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" href="{{ url_for('static', filename='img/logo.jpg')}}">
+	<link rel="icon" href="{{ url_for('static', filename='img/logo.png')}}">
 
 </head>
 
@@ -16,6 +16,8 @@
 		<div class="form-container">
 			{% block main %}
 			<h1>
+				<center><a href="" class="logo"><img src="{{ url_for('static', filename='img/logo.png')}}" alt="nutridiet.com"></a></center>
+
 				<center>Welcome to NutriDiet!</center>
 				<!-- <center>Welcome to your Artificially Intelligent Dietitian (NutriDiet)!</center> -->
 				</h2>
