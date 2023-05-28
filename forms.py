@@ -3,10 +3,9 @@ from wtforms import Form, TextField, TextAreaField, validators, StringField, Sub
 from wtforms.validators import DataRequired, Length
 class UserInfoForm(FlaskForm):
 
-    name = StringField('Name:', 
-    					validators=[DataRequired(), Length(min=2,max=20)])
-    weight = IntegerField('Weight:', validators=[DataRequired(message="No valid value")])
-    height = FloatField('Height:', validators=[DataRequired(message="No valid value")] )
+    name = StringField('Name:', validators=[DataRequired(message="No valid value"), Length(min=2,max=20)])
+    weight = IntegerField('Weight(Kg):', validators=[DataRequired(message="No valid value")])
+    height = FloatField('Height(cm):', validators=[DataRequired(message="No valid value")] )
     age = IntegerField('Age:', validators=[DataRequired(message="No valid value")])
     gender = RadioField('Gender',choices=[('Male','Male'),('Female','Female')],default='Male',validators=[DataRequired()])
     physical_activity=RadioField('Physical Activity',
@@ -20,4 +19,4 @@ class UserInfoForm(FlaskForm):
 	    								],
 	    						default='value1',
 	    						validators=[DataRequired()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Generate Diet Plan')

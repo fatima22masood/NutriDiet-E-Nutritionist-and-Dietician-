@@ -14,15 +14,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 
-class Contact(db.Model):
-    sno = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), nullable=False)
-    email = db.Column(db.String(20), nullable=False)
-    phone_num = db.Column(db.String(12), nullable=False)
-    msg = db.Column(db.String(80), nullable=False)
-    date = db.Column(db.String, nullable=False)
-
-
 class UserLogin(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
@@ -48,14 +39,49 @@ class UserInfo(db.Model):
 class DietPlanModel(db.Model):
     plan_id = db.Column(db.Integer, primary_key=True)
     tdee = db.Column(db.Float, nullable=False)
-    breakfast = db.Column(db.String(100), nullable=False)
-    snack1 = db.Column(db.String(100), nullable=False)
-    lunch = db.Column(db.String(100), nullable=False)
-    snack2 = db.Column(db.String(100), nullable=False)
-    dinner = db.Column(db.String(100), nullable=False)
-    snack3 = db.Column(db.String(100), nullable=False)
+    breakfast_Monday = db.Column(db.String(100), nullable=False)
+    snack1_Monday = db.Column(db.String(100), nullable=False)
+    lunch_Monday = db.Column(db.String(100), nullable=False)
+    snack2_Monday = db.Column(db.String(100), nullable=False)
+    dinner_Monday = db.Column(db.String(100), nullable=False)
+    snack3_Monday = db.Column(db.String(100), nullable=False)
+    breakfast_Tuesday = db.Column(db.String(100), nullable=False)
+    snack1_Tuesday = db.Column(db.String(100), nullable=False)
+    lunch_Tuesday = db.Column(db.String(100), nullable=False)
+    snack2_Tuesday = db.Column(db.String(100), nullable=False)
+    dinner_Tuesday = db.Column(db.String(100), nullable=False)
+    snack3_Tuesday = db.Column(db.String(100), nullable=False)
+    breakfast_Wednesday = db.Column(db.String(100), nullable=False)
+    snack1_Wednesday = db.Column(db.String(100), nullable=False)
+    lunch_Wednesday = db.Column(db.String(100), nullable=False)
+    snack2_Wednesday = db.Column(db.String(100), nullable=False)
+    dinner_Wednesday = db.Column(db.String(100), nullable=False)
+    snack3_Wednesday = db.Column(db.String(100), nullable=False)
+    breakfast_Thursday = db.Column(db.String(100), nullable=False)
+    snack1_Thursday = db.Column(db.String(100), nullable=False)
+    lunch_Thursday = db.Column(db.String(100), nullable=False)
+    snack2_Thursday = db.Column(db.String(100), nullable=False)
+    dinner_Thursday = db.Column(db.String(100), nullable=False)
+    snack3_Thursday = db.Column(db.String(100), nullable=False)
+    breakfast_Friday = db.Column(db.String(100), nullable=False)
+    snack1_Friday = db.Column(db.String(100), nullable=False)
+    lunch_Friday = db.Column(db.String(100), nullable=False)
+    snack2_Friday = db.Column(db.String(100), nullable=False)
+    dinner_Friday = db.Column(db.String(100), nullable=False)
+    snack3_Friday = db.Column(db.String(100), nullable=False)
+    breakfast_Saturday = db.Column(db.String(100), nullable=False)
+    snack1_Saturday = db.Column(db.String(100), nullable=False)
+    lunch_Saturday = db.Column(db.String(100), nullable=False)
+    snack2_Saturday = db.Column(db.String(100), nullable=False)
+    dinner_Saturday = db.Column(db.String(100), nullable=False)
+    snack3_Saturday = db.Column(db.String(100), nullable=False)
+    breakfast_Sunday = db.Column(db.String(100), nullable=False)
+    snack1_Sunday = db.Column(db.String(100), nullable=False)
+    lunch_Sunday = db.Column(db.String(100), nullable=False)
+    snack2_Sunday = db.Column(db.String(100), nullable=False)
+    dinner_Sunday = db.Column(db.String(100), nullable=False)
+    snack3_Sunday = db.Column(db.String(100), nullable=False)
     id = db.Column(db.Integer, db.ForeignKey("user_login.id"), nullable=False)
-
 
 
 @app.route("/")
@@ -141,8 +167,8 @@ def home():
         weight = float(form.weight.data)
         height = float(form.height.data)
         age = int(form.age.data)
-        gender = request.form["gender"]
-        phys_act = request.form["physical_activity"]
+        gender = form.gender.data
+        phys_act = form.physical_activity.data
 
         # Retrieve the logged-in user's ID from the session
         user_id = session.get("id")
@@ -158,7 +184,7 @@ def home():
             age=age,
             gender=gender,
             phys_act=phys_act,
-            id=user_id,  # Assign the user_id directly to id
+            id=user_id,  # Assign the user_id directly to user_id
         )
 
         db.session.add(user_info)
@@ -177,22 +203,71 @@ def result():
         return render_template("error.html", title="Error Page")
 
     tdee = float(tdee)
-    breakfast = algo.bfcalc(tdee)
-    snack1 = algo.s1calc(tdee)
-    lunch = algo.lcalc(tdee)
-    snack2 = algo.s2calc(tdee)
-    dinner = algo.dcalc(tdee)
-    snack3 = algo.s3calc(tdee)
+    diet_plan = {}
+
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    for day in days_of_week:
+        breakfast = algo.bfcalc(tdee)
+        snack1 = algo.s1calc(tdee)
+        lunch = algo.lcalc(tdee)
+        snack2 = algo.s2calc(tdee)
+        dinner = algo.dcalc(tdee)
+        snack3 = algo.s3calc(tdee)
+
+        diet_plan[day] = {
+            "breakfast": breakfast,
+            "snack1": snack1,
+            "lunch": lunch,
+            "snack2": snack2,
+            "dinner": dinner,
+            "snack3": snack3,
+        }
 
     user_login = UserLogin.query.get(session["id"])
     dietplan = DietPlanModel(
         tdee=tdee,
-        breakfast=breakfast,
-        snack1=snack1,
-        lunch=lunch,
-        snack2=snack2,
-        dinner=dinner,
-        snack3=snack3,
+        breakfast_Monday=diet_plan["Monday"]["breakfast"],
+        snack1_Monday=diet_plan["Monday"]["snack1"],
+        lunch_Monday=diet_plan["Monday"]["lunch"],
+        snack2_Monday=diet_plan["Monday"]["snack2"],
+        dinner_Monday=diet_plan["Monday"]["dinner"],
+        snack3_Monday=diet_plan["Monday"]["snack3"],
+        breakfast_Tuesday=diet_plan["Tuesday"]["breakfast"],
+        snack1_Tuesday=diet_plan["Tuesday"]["snack1"],
+        lunch_Tuesday=diet_plan["Tuesday"]["lunch"],
+        snack2_Tuesday=diet_plan["Tuesday"]["snack2"],
+        dinner_Tuesday=diet_plan["Tuesday"]["dinner"],
+        snack3_Tuesday=diet_plan["Tuesday"]["snack3"],
+        breakfast_Wednesday=diet_plan["Wednesday"]["breakfast"],
+        snack1_Wednesday=diet_plan["Wednesday"]["snack1"],
+        lunch_Wednesday=diet_plan["Wednesday"]["lunch"],
+        snack2_Wednesday=diet_plan["Wednesday"]["snack2"],
+        dinner_Wednesday=diet_plan["Wednesday"]["dinner"],
+        snack3_Wednesday=diet_plan["Wednesday"]["snack3"],
+        breakfast_Thursday=diet_plan["Thursday"]["breakfast"],
+        snack1_Thursday=diet_plan["Thursday"]["snack1"],
+        lunch_Thursday=diet_plan["Thursday"]["lunch"],
+        snack2_Thursday=diet_plan["Thursday"]["snack2"],
+        dinner_Thursday=diet_plan["Thursday"]["dinner"],
+        snack3_Thursday=diet_plan["Thursday"]["snack3"],
+        breakfast_Friday=diet_plan["Friday"]["breakfast"],
+        snack1_Friday=diet_plan["Friday"]["snack1"],
+        lunch_Friday=diet_plan["Friday"]["lunch"],
+        snack2_Friday=diet_plan["Friday"]["snack2"],
+        dinner_Friday=diet_plan["Friday"]["dinner"],
+        snack3_Friday=diet_plan["Friday"]["snack3"],
+        breakfast_Saturday=diet_plan["Saturday"]["breakfast"],
+        snack1_Saturday=diet_plan["Saturday"]["snack1"],
+        lunch_Saturday=diet_plan["Saturday"]["lunch"],
+        snack2_Saturday=diet_plan["Saturday"]["snack2"],
+        dinner_Saturday=diet_plan["Saturday"]["dinner"],
+        snack3_Saturday=diet_plan["Saturday"]["snack3"],
+        breakfast_Sunday=diet_plan["Sunday"]["breakfast"],
+        snack1_Sunday=diet_plan["Sunday"]["snack1"],
+        lunch_Sunday=diet_plan["Sunday"]["lunch"],
+        snack2_Sunday=diet_plan["Sunday"]["snack2"],
+        dinner_Sunday=diet_plan["Sunday"]["dinner"],
+        snack3_Sunday=diet_plan["Sunday"]["snack3"],
         id=user_login.id,
     )
 
@@ -200,17 +275,8 @@ def result():
     db.session.commit()
 
     return render_template(
-        "result.html",
-        title="Result",
-        breakfast=breakfast,
-        snack1=snack1,
-        lunch=lunch,
-        snack2=snack2,
-        dinner=dinner,
-        snack3=snack3,
-        tdee=tdee,
+        "result.html", title="Result", diet_plan=diet_plan, tdee=tdee
     )
-
 
 
 # Define a custom class for PDF generation
@@ -246,43 +312,37 @@ def download():
     except ValueError:
         abort(404, "Invalid TDEE value.")
 
-    # Retrieve the diet plans for the user ID
-    user_login = UserLogin.query.get(session["id"])
-    diet_plans = DietPlanModel.query.filter_by(id=user_login.id).all()
+    # Retrieve the diet plan for the logged-in user ID
+    user_id = session.get("id")
+    diet_plan = DietPlanModel.query.filter_by(id=user_id).first()
 
-    if not diet_plans:
-        abort(404, "No diet plans found.")
+    if not diet_plan:
+        abort(404, "No diet plan found.")
 
     # Create a PDF with the diet plan content
     pdf = PDF()
     pdf.add_page()
 
-    for diet_plan in diet_plans:
-        breakfast = diet_plan.breakfast
-        snack1 = diet_plan.snack1
-        lunch = diet_plan.lunch
-        snack2 = diet_plan.snack2
-        dinner = diet_plan.dinner
-        snack3 = diet_plan.snack3
-
-        pdf.chapter_title("Diet Plan")
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    for day in days_of_week:
+        pdf.chapter_title(f"{day.capitalize()} Diet Plan")
         pdf.chapter_body(f"TDEE: {diet_plan.tdee}")
         pdf.chapter_title("Breakfast")
-        pdf.chapter_body(breakfast)
+        pdf.chapter_body(getattr(diet_plan, f"breakfast_{day}"))
         pdf.chapter_title("Snack 1")
-        pdf.chapter_body(snack1)
+        pdf.chapter_body(getattr(diet_plan, f"snack1_{day}"))
         pdf.chapter_title("Lunch")
-        pdf.chapter_body(lunch)
+        pdf.chapter_body(getattr(diet_plan, f"lunch_{day}"))
         pdf.chapter_title("Snack 2")
-        pdf.chapter_body(snack2)
+        pdf.chapter_body(getattr(diet_plan, f"snack2_{day}"))
         pdf.chapter_title("Dinner")
-        pdf.chapter_body(dinner)
+        pdf.chapter_body(getattr(diet_plan, f"dinner_{day}"))
         pdf.chapter_title("Snack 3")
-        pdf.chapter_body(snack3)
+        pdf.chapter_body(getattr(diet_plan, f"snack3_{day}"))
         pdf.add_page()
 
     # Save the PDF to a temporary file
-    filename = "diet_plans.pdf"
+    filename = "diet_plan.pdf"
     pdf.output(filename)
 
     # Send the file for download
@@ -296,16 +356,6 @@ def about():
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        phone_num = request.form.get("phone_num")
-        msg = request.form.get("msg")
-
-        entry = Contact(name=name, phone_num=phone_num, msg=msg, email=email)
-        db.session.add(entry)
-        db.session.commit()
-
     return render_template("contact.html")
 
 
