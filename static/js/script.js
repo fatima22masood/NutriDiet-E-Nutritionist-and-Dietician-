@@ -9,6 +9,9 @@ function myFunction() {
 
 //loader js ending
 
+// // navbar
+
+
 
 // JavaScript code to initialize Swiper
 
