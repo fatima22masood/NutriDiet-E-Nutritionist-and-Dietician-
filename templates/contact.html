@@ -7,7 +7,6 @@
 
     <section class="heading-link">
         <h3>Contact us</h3>
-        <!-- <p> <a href="index">home</a> / contact </p> -->
     </section>
 
     <!-- contact section starts  -->
@@ -25,17 +24,21 @@
             </div>
 
             <div class="icons">
-                <i class="fab fa-whatsapp"></i>
-                <h3> Whatsapp :</h3>
-                <p>+92-308-6787451</p>
-            </div>
-
-            <div class="icons">
-                <i class="fas fa-envelope"></i>
-                <h3> E-mail : </h3>
-                <p>nutridiet112010@gmail.com</p>
-            </div>
-
+              <a href="https://wa.me/+923086787451" target="_blank">
+                  <i class="fab fa-whatsapp"></i>
+              </a>
+              <h3> Whatsapp :</h3>
+              <p>+92-308-6787451</p>
+          </div>
+          
+          <div class="icons">
+              <a href="mailto:nutridiet112010@gmail.com" target="_blank">
+                  <i class="fas fa-envelope"></i>
+              </a>
+              <h3> E-mail : </h3>
+              <p>nutridiet112010@gmail.com</p>
+          </div>
+          
             <div class="icons">
                 <i class="fas fa-map"></i>
                 <h3>Address :</h3>
@@ -50,14 +53,14 @@
                 <img src="{{ url_for('static', filename='img/contact-img.jpg')}}">
             </div>
 
-            <form action="/contact" method="post">
+            <!-- <form action="/contact" method="post">
                 <h3>send us a message</h3>
                 <input type="text" placeholder="Name" name="name" class="box">
                 <input type="email" placeholder="Email" name="email" class="box">
                 <input type="number" placeholder="Phone" name="phone_num" class="box">
                 <input type="message" placeholder="Message" name="msg" class="box">
                 <input type="submit" value="Send message" class="btn">
-            </form>
+            </form> -->
 
         </div>
 
