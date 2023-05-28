@@ -89,11 +89,32 @@ label{
     background-color: white;
     color: #679B62;
 }
-.buttons{
-    text-align: center;
+
+#diet_plan td,
+#diet_plan th{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#diet_plan tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#diet_plan tr:hover {
+    background-color: #ddd;
+}
+
+#diet_plan th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: white;
+    color: #679B62;
+}
+
+form .buttons{
+     text-align: center;
     justify-content: center;
 }
 
-
-  
   

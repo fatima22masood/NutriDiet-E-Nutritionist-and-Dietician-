@@ -124,7 +124,7 @@ section {
   border-radius: 25px;
 }
 
-.header .navbar {
+/* .header .navbar {
   position: relative;
 }
 
@@ -139,6 +139,60 @@ section {
   color: #679B62;
 }
 
+.header .navbar a.active {
+  color: #679B62;
+}
+
+.navbar .icon {
+  display: none;
+} */
+
+nav{
+  /* background: ; */
+  color: #679B62;
+  height: 80px;
+  width: 100%;
+}
+label.logo{
+  color: white;
+  font-size: 35px;
+  line-height: 80px;
+  padding: 0 100px;
+  font-weight: bold;
+}
+nav ul{
+  float: right;
+  margin-right: 20px;
+}
+nav ul li{
+  display: inline-block;
+  line-height: 80px;
+  margin: 0 5px;
+}
+nav ul li a{
+  color: #679B62;
+  font-size: 17px;
+  padding: 7px 13px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+a.active,a:hover{
+  background: #90b721;
+  color: white;
+  transition: .5s;
+}
+.checkbtn{
+  font-size: 30px;
+  color: #679B62;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+  cursor: pointer;
+  display: none;
+}
+#check{
+  display: none;
+}
 /* Home page */
 
 #home {
@@ -370,14 +424,14 @@ section {
 #nutritionists .box-container .box .content h3 {
   font-size: 2rem;
   text-transform: capitalize;
-  color: #90b721;
+  color: #679B62;
 }
 
 #nutritionists .box-container .box .content span {
   padding: 1rem 0;
   font-size: 1.6rem;
   line-height: 2;
-  color: #90b721;
+  color: #679B62;
 }
 
 #nutritionists .box-container .box .image .share {
@@ -683,9 +737,9 @@ section {
   padding-right: 0.5rem;
 }
 
-.footer .box-container .box a:hover {
+/* .footer .box-container .box a:hover {
   color: #90b721;
-}
+} */
 
 .footer .box-container .box a:hover i {
   padding-right: 2rem;
@@ -749,10 +803,8 @@ section {
     justify-content: center;
     z-index: 1200;
   }
-  .header .navbar #close-navbar {
-    display: block;
-  }
-  .header .navbar.active {
+  
+  .header .navbar .active {
     -webkit-box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 0 100vw rgba(0, 0, 0, 0.8);
     right: 0;
@@ -780,3 +832,43 @@ section {
   }
 }
 
+@media (max-width: 952px){
+  label.logo{
+    font-size: 30px;
+    padding-left: 50px;
+  }
+  nav ul li a{
+    font-size: 16px;
+  }
+}
+@media (max-width: 858px){
+  .checkbtn{
+    display: block;
+  }
+  ul{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #679B62;
+    top: 80px;
+    left: -100%;
+    text-align: center;
+    transition: all .5s;
+  }
+  nav ul li{
+    display: block;
+    margin: 50px 0;
+    line-height: 30px;
+  }
+  nav ul li a{
+    font-size: 20px;
+    color: white;
+  }
+  a:hover,a.active{
+    background: white;
+    color: #679B62;
+  }
+  #check:checked ~ ul{
+    left: 0;
+  }
+}
