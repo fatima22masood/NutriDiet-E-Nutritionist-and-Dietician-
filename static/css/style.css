@@ -171,7 +171,8 @@ nav ul li{
 }
 nav ul li a{
   color: #679B62;
-  font-size: 17px;
+  font-weight: bolder;
+  font-size: 20px;
   padding: 7px 13px;
   border-radius: 3px;
   text-transform: uppercase;
@@ -276,9 +277,10 @@ a.active,a:hover{
 }
 
 #services .box-container .box .image h3 {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
   text-transform: capitalize;
-  color: #90b721;
+  color: #679B62;
   position: absolute;
   top: 1rem;
   left: 1rem;
@@ -337,7 +339,7 @@ a.active,a:hover{
 .about .content .about-title {
   font-size: 3rem;
   text-transform: capitalize;
-  color: #90b721;
+  color: #30642c;
 }
 
 .about .content p {
@@ -424,14 +426,14 @@ a.active,a:hover{
 #nutritionists .box-container .box .content h3 {
   font-size: 2rem;
   text-transform: capitalize;
-  color: #679B62;
+  color: #000;
 }
 
 #nutritionists .box-container .box .content span {
   padding: 1rem 0;
   font-size: 1.6rem;
   line-height: 2;
-  color: #679B62;
+  color: #000;
 }
 
 #nutritionists .box-container .box .image .share {
@@ -677,7 +679,7 @@ a.active,a:hover{
 .faq .accordion-container .accordion .accordion-heading h3 {
   font-size: 2rem;
   text-transform: capitalize;
-  color: #90b721;
+  color: #30642c;
 }
 
 .faq .accordion-container .accordion .accordion-heading i {
@@ -689,7 +691,7 @@ a.active,a:hover{
   padding: 1.5rem;
   font-size: 1.5rem;
   line-height: 2;
-  color: #90b721;
+  color: #000;
   border-top: 0.1rem solid #679B62;
   display: none;
 }

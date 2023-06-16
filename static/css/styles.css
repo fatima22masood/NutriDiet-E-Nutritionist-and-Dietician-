@@ -113,8 +113,13 @@ label{
 }
 
 form .buttons{
+    display: flex;
+    flex-direction: column;
      text-align: center;
     justify-content: center;
 }
 
+.invalid-feedback span{
+    color: red;
+}
   
