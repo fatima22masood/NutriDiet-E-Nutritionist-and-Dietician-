@@ -2,90 +2,98 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriDiet | E-Nutritionist and Dietician</title>
-    <link rel="icon" href="{{ url_for('static', filename='img/logo.png')}}">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriDiet | E-Nutritionist and Dietician</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/logo.png')}}">
 
-    <!-- font awesome cdn link  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
-
-    <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+  <!-- font awesome cdn link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <!-- custom css file link  -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <!-- custom js file link  -->
+
+  <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
 
 </head>
 
 <body onload="myFunction()">
   <div id="loading"></div>
-    <!-- header section starts  -->
+  <!-- header section starts  -->
 
-    <header class="header">
+  <header class="header">
 
-        <a href="index" class="logo"><img src="{{ url_for('static', filename='img/logo.png')}}" alt="nutridiet.com"></a>
+    <a href="index" class="logo"><img src="{{ url_for('static', filename='img/logo.png')}}" alt="nutridiet.com"></a>
 
-        <div class="fullpage">
-            <nav class="navbar">
-                <a href="index">Home</a>
-                <a href="about">About</a>
-                <a href="contact">Contact</a>
-                <a href="login" >Logout</a>
-            </nav>
-        </div>
-        
+    <div class="fullpage">
+      <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <ul>
+          <li><a href="index">Home</a></li>
+          <li><a href="about">About</a></li>
+          <li><a href="contact">Contact</a></li>
+          <li><a href="login">logout</a></li>
+        </ul>
+      </nav>
+    </div>
 
-    </header>
-    {% block body %}
 
-    {% endblock %}
-    
-    <section class="footer">
-        <div class="box-container">
-          <div class="box">
-            <h3>Quick links</h3>
-            <a href="index">Home</a>
-            <a href="about">About</a>
-            <a href="contact">Contact</a>
-          </div>
-  
-          <div class="box">
-            <h3>Contact info</h3>
-            <a href=""> <i class="fab fa-whatsapp"></i> +92 308 6787451 </a>
-            <a href="">
-              <i class="fas fa-envelope"></i> nutridiet112010@gmail.com
-            </a>
-            <a href=""> <i class="fas fa-map"></i> Punjab - Pakistan</a>
-          </div>
-  
-          <div class="box">
-            <h3>Follow us</h3>
-            <a href="https://www.facebook.com/profile.php?id=100086596099314">
-              <i class="fab fa-facebook-f"></i> Facebook
-            </a>
-            <a href="https://youtu.be/qwGZzkMFbwc">
-              <i class="fab fa-youtube"></i> YouTube
-            </a>
-            <a href="https://instagram.com/nutri_diet2022?igshid=YmMyMTA2M2Y=">
-              <i class="fab fa-instagram"></i> Instagram
-            </a>
-          </div>
-        </div>
-  
-        <div class="credit">
-          Copyright &copy; <span>Eshfa NutriDiet 2023</span> | all rights
-          reserved!
-        </div>
-      </section>
-  
-      <!-- footer section ends -->
-  
-    </body>
-  </html>
-  
+  </header>
+  {% block body %}
+
+  {% endblock %}
+
+  <section class="footer">
+    <div class="box-container">
+      <div class="box">
+        <h3>Quick links</h3>
+        <a href="index">Home</a>
+        <a href="about">About</a>
+        <a href="contact">Contact</a>
+      </div>
+
+      <div class="box">
+        <h3>Contact info</h3>
+        <a href="https://wa.me/+923086787451" target="_blank"> <i class="fab fa-whatsapp"></i> +92 308 6787451 </a>
+        <a href="mailto:nutridiet112010@gmail.com" target="_blank">
+          <i class="fas fa-envelope"></i> nutridiet112010@gmail.com
+        </a>
+        <a href=""> <i class="fas fa-map"></i> Punjab - Pakistan</a>
+      </div>
+
+      <div class="box">
+        <h3>Follow us</h3>
+        <a href="https://www.facebook.com/profile.php?id=100086596099314">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </a>
+        <a href="https://youtu.be/qwGZzkMFbwc">
+          <i class="fab fa-youtube"></i> YouTube
+        </a>
+        <a href="https://instagram.com/nutri_diet2022?igshid=YmMyMTA2M2Y=">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+      </div>
+    </div>
+
+    <div class="credit">
+      Copyright &copy; <span>Eshfa NutriDiet 2023</span> | all rights
+      reserved!
+    </div>
+  </section>
+
+  <!-- footer section ends -->
+
+</body>
+
+</html>

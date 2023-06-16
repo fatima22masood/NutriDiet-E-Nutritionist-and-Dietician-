@@ -8,18 +8,40 @@
 	<link rel="stylesheet" href="static/bootstrap-theme.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" href="{{ url_for('static', filename='img/logo.png')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
 
 </head>
 
 <body>
+	
 	<div class="container">
+		<header class="header">
+
+			<a href="index" class="logo"><img src="{{ url_for('static', filename='img/logo.png')}}" alt="nutridiet.com"></a>
+		
+			<div class="fullpage">
+			  <nav>
+				<input type="checkbox" id="check">
+				<label for="check" class="checkbtn">
+				  <i class="fas fa-bars"></i>
+				</label>
+				<ul>
+				  <li><a href="index">Home</a></li>
+				  <li><a href="about">About</a></li>
+				  <li><a href="contact">Contact</a></li>
+				  <li><a href="login">logout</a></li>
+				</ul>
+			  </nav>
+			</div>
+		
+		
+		  </header>
 		<div class="form-container">
 			{% block main %}
 			<h1>
-				<center><a href="" class="logo"><img src="{{ url_for('static', filename='img/logo.png')}}" alt="nutridiet.com"></a></center>
+				<!-- <center><a href="index" class="logo"><img src="{{ url_for('static', filename='img/logo.png')}}" alt="nutridiet.com"></a></center> -->
 
 				<center>Welcome to NutriDiet!</center>
-				<!-- <center>Welcome to your Artificially Intelligent Dietitian (NutriDiet)!</center> -->
 				</h2>
 				<h3>
 					<center>Get your personalised Diet Chart!</center>
